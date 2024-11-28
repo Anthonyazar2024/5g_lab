@@ -8,8 +8,9 @@ import authRoutes from './routes/auth.js';
 import { createUserTable } from './models/userModel.js'; // Use named import
 import fs from 'fs';
 const app = express();
-const PORT = 5001;
+const PORT = vmConfig.server_port;
 const sshhost = vmConfig.ssh_host;
+const AppPort = vmConfig.app_port;
 
 // Connect to the database and ensure user table is created
 (async () => {
@@ -25,7 +26,7 @@ const sshhost = vmConfig.ssh_host;
 
 // Middleware
 app.use(cors({
-    origin: `http://${sshhost}:5173`, // Allow requests from your React app
+    origin: `http://${sshhost}:${AppPort}`, // Allow requests from your React app
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
 }));
 
@@ -46,7 +47,7 @@ app.post('/git-clone', (req, res) => {
     conn.on('ready', () => {
         console.log('SSH Connection Established.');
 
-        const repoUrl = 'https://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@github.com/b-yond-infinite-network/laas-5gsa-k8s.git';
+        const repoUrl = 'https://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@github.com/b-yond-infinite-network/laas-5gsa-k8s.git';
         const targetDirectory = 'laas-5gsa-k8s';
         const command = `
             rm -rf ${targetDirectory} &&

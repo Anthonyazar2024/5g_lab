@@ -5,10 +5,10 @@ import vmConfig from '../../../vmConfig.js';
 const FolderListPage = () => {
     const [files, setFiles] = useState([]);
     const sshhost = vmConfig.ssh_host;
-   
+    const PORT = vmConfig.server_port;
 
     useEffect(() => {
-        fetch(`http://${sshhost}:5001/list-tar-gz-files`)
+        fetch(`http://${sshhost}:${PORT}/list-tar-gz-files`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Server error: ${response.status}`);
@@ -26,7 +26,7 @@ const FolderListPage = () => {
     }, []);
 
     const handleDownload = (fileName) => {
-        const fileUrl = `http://${sshhost}:5001/download/${fileName}`;
+        const fileUrl = `http://${sshhost}:${PORT}/download/${fileName}`;
         window.open(fileUrl, '_blank');
     };
 

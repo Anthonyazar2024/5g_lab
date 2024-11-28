@@ -10,7 +10,7 @@ const InitialButton = ({ buttonName, actionName, command, commandPath, checkStat
     const [zipFilePath, setZipFilePath] = useState(null); // State for zip file path
     const [intervalId, setIntervalId] = useState(null); // To store interval ID
     const sshhost = vmConfig.ssh_host;
-   
+    const PORT = vmConfig.server_port;
 
     const handleAction = async () => {
         setLoading(true);
@@ -61,7 +61,7 @@ const InitialButton = ({ buttonName, actionName, command, commandPath, checkStat
     };
 
     const handleDownload = (fileName) => {
-        const fileUrl = `http://${sshhost}:5001/download/${fileName}`;
+        const fileUrl = `http://${sshhost}:${PORT}/download/${fileName}`;
         window.open(fileUrl, '_blank');
         console.log('Initiating direct download for:', fileName);
     };

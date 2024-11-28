@@ -8,7 +8,7 @@ const ActionButton = ({ ueCode, actionType, onActionComplete, isDisabled }) => {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [output, setOutput] = useState(''); // State to store output
     const [error, setError] = useState(''); // State to store error message
-
+    const PORT = vmConfig.server_port;
     const handleAction = async () => {
         setIsLoading(true);
         setOutput(''); // Reset output state
@@ -33,7 +33,7 @@ const ActionButton = ({ ueCode, actionType, onActionComplete, isDisabled }) => {
             }
 
             console.log(`Calling API endpoint: ${endpoint} with ueCode: ${ueCode}`);
-            const response = await apiCall(`http://${sshhost}:5001/${endpoint}`, 'POST', { ueCode });
+            const response = await apiCall(`http://${sshhost}:${PORT}/${endpoint}`, 'POST', { ueCode });
 
             // Assuming response contains an output property
             const scriptOutput = response.output || '';

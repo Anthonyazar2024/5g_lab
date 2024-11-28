@@ -8,14 +8,14 @@ const UsersPage = () => {
     const [newUser, setNewUser] = useState({ name: '', email: '', password: '' });
     const [showModal, setShowModal] = useState(false);
     const sshhost = vmConfig.ssh_host;
-
+    const PORT = vmConfig.server_port;
     useEffect(() => {
         fetchUsers();
     }, []);
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get(`http://${sshhost}:5001/api/auth/users`);
+            const response = await axios.get(`http://${sshhost}:${PORT}/api/auth/users`);
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -25,7 +25,7 @@ const UsersPage = () => {
     const handleAddUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`http://${sshhost}:5001/api/auth/users`, newUser);
+            await axios.post(`http://${sshhost}:${PORT}/api/auth/users`, newUser);
             fetchUsers(); // Refresh user list
             setNewUser({ name: '', email: '', password: '' }); // Reset form
             setShowModal(false); // Close modal
@@ -36,7 +36,7 @@ const UsersPage = () => {
 
     const handleRemoveUser = async (id) => {
         try {
-            await axios.delete(`http://${sshhost}:5001/api/auth/users/${id}`);
+            await axios.delete(`http://${sshhost}:${PORT}/api/auth/users/${id}`);
             fetchUsers(); // Refresh user list after deletion
         } catch (error) {
             console.error('Error deleting user:', error);

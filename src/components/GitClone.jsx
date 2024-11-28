@@ -5,12 +5,12 @@ const sshhost = vmConfig.ssh_host;
 const GitClone = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-
+    const PORT = vmConfig.server_port;
     const handleGitClone = async () => {
         setLoading(true);
         setMessage('');
         try {
-            const result = await apiCall(`http://${sshhost}:5001/git-clone`, 'POST');
+            const result = await apiCall(`http://${sshhost}:${PORT}/git-clone`, 'POST');
             if (result.success) {
                 setMessage('Git repository cloned successfully!');
             } else {

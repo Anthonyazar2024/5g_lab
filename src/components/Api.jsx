@@ -1,6 +1,7 @@
 import axios from 'axios';
 import vmConfig from '../../vmConfig.js';
 const sshhost = vmConfig.ssh_host;
+const PORT = vmConfig.server_port;
 // Function to perform generic API calls (GET, POST, etc.)
 export const apiCall = async (url, method = 'GET', body = null) => {
     try {
@@ -31,7 +32,7 @@ export const apiCall = async (url, method = 'GET', body = null) => {
 export const runScript = async (scriptName, scriptLocation) => {
     try {
        
-        const response = await axios.post(`http://${sshhost}:5001/run-script`, {
+        const response = await axios.post(`http://${sshhost}:${PORT}/run-script`, {
             scriptName,
             scriptLocation,
         });
