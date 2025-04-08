@@ -12,6 +12,8 @@ const RegisterPage = () => {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const sshhost = vmConfig.ssh_host;
+    const PORT = vmConfig.server_port;
+
 
     // Handle the registration form submission
     const handleRegister = async (e) => {
@@ -20,7 +22,7 @@ const RegisterPage = () => {
         console.log('Form Data:', { name, email, password }); // Log the data to ensure it's correct
 
         try {
-            const res = await axios.post(`http://${sshhost}:8500/api/auth/register`, { name, email, password });
+            const res = await axios.post(`http://${sshhost}:${PORT}/api/auth/register`, { name, email, password });
             console.log('Registration successful:', res.data);
             navigate('/home');
         } catch (err) {
